@@ -16,7 +16,7 @@ import {
     StatusBar,
     PermissionsAndroid,
     Platform,
-    YellowBox,
+    YellowBox,Alert
 } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -30,6 +30,7 @@ import COLOR from '../styles/Color';
 import COLOR_SCHEME from '../styles/ColorScheme';
 import styles from '../styles/Styles';
 import messaging from '@react-native-firebase/messaging';
+import NotifService from '../manager/NotifeService';
 export default class MainScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         const params = navigation.state.params || {};
@@ -56,7 +57,23 @@ export default class MainScreen extends React.Component {
             'Warning: componentWillMount is deprecated',
             'Warning: componentWillReceiveProps is deprecated',
         ]);
+        this.notif = new NotifService(
+            this.onRegister.bind(this),
+            this.onNotif.bind(this),
+          );
     }
+
+    onRegister(token) {
+        //this.setState({registerToken: token.token, fcmRegistered: true});
+      }
+    
+      onNotif(notif) {
+      //  Alert.alert(notif.title, notif.message);
+      }
+    
+      handlePerm(perms) {
+       // Alert.alert('Permissions', JSON.stringify(perms));
+      }
 
     async requestUserPermission() {
         const authStatus = await messaging().requestPermission();
@@ -71,7 +88,7 @@ export default class MainScreen extends React.Component {
 
     componentDidMount() {
        // this.requestUserPermission()
-
+this.notif.localNotif(undefined,'test notif')
         this.props.navigation.setParams({ settingsClick: this._goToSettings, backClicked: this._goToLogin });
         LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
     }
