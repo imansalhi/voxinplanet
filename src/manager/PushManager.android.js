@@ -1,76 +1,76 @@
-/*
- * Copyright (c) 2011-2018, Zingaya, Inc. All rights reserved.
- https://github.com/zo0r/react-native-push-notification
- */
+// /*
+//  * Copyright (c) 2011-2018, Zingaya, Inc. All rights reserved.
+//  https://github.com/zo0r/react-native-push-notification
+//  */
 
-'use strict';
+// 'use strict';
 
-import LoginManager from './LoginManager';
+// import LoginManager from './LoginManager';
 
-import firebase from 'react-native-firebase';
-import { Notification } from 'react-native-firebase';
+// import firebase from 'react-native-firebase';
+// import { Notification } from 'react-native-firebase';
 
-class PushManager {
-    pushToken = null;
+// class PushManager {
+//     pushToken = null;
 
-    constructor() { }
+//     constructor() { }
 
-    init() {
-        try {
-            firebase.messaging().onTokenRefresh((token) => {
-                console.log('Refresh token: ' + token);
-            });
-            firebase.messaging().onMessage(async (message) => {
-                console.log('PushManager: FCM: notification: ' + message.data);
-                LoginManager.getInstance().pushNotificationReceived(message.data);
-            });
+//     init() {
+//         try {
+//             firebase.messaging().onTokenRefresh((token) => {
+//                 console.log('Refresh token: ' + token);
+//             });
+//             firebase.messaging().onMessage(async (message) => {
+//                 console.log('PushManager: FCM: notification: ' + message.data);
+//                 LoginManager.getInstance().pushNotificationReceived(message.data);
+//             });
 
-            firebase.messaging().getToken()
-                .then(token => {
-                    console.log(token);
-                    this.pushToken = token;
-                })
-                .catch(() => {
-                    console.warn('PushManager android: failed to get FCM token');
-                });
+//             firebase.messaging().getToken()
+//                 .then(token => {
+//                     console.log(token);
+//                     this.pushToken = token;
+//                 })
+//                 .catch(() => {
+//                     console.warn('PushManager android: failed to get FCM token');
+//                 });
 
-            const channel = new firebase.notifications.Android.Channel('voximplant_channel_id', 'Incoming call channel', firebase.notifications.Android.Importance.Max)
-                .setDescription('Incoming call received');
-            firebase.notifications().android.createChannel(channel);
-        } catch (e) {
-            console.warn('React Native Firebase is not set up. Enable google-services plugin at the bottom of the build.gradle file');
-        }
+//             const channel = new firebase.notifications.Android.Channel('voximplant_channel_id', 'Incoming call channel', firebase.notifications.Android.Importance.Max)
+//                 .setDescription('Incoming call received');
+//             firebase.notifications().android.createChannel(channel);
+//         } catch (e) {
+//             console.warn('React Native Firebase is not set up. Enable google-services plugin at the bottom of the build.gradle file');
+//         }
 
-    }
+//     }
 
-    getPushToken() {
-        return this.pushToken;
-    }
+//     getPushToken() {
+//         return this.pushToken;
+//     }
 
-    showLocalNotification(from) {
-        console.log('PushManager: showLocalNotification');
-        try {
-            const notification = new firebase.notifications.Notification()
-                .setNotificationId('notificationId')
-                .setTitle('Incoming call');
-            notification.android.setSmallIcon('ic_vox_notification');
-            notification
-                .android.setChannelId('voximplant_channel_id');
-            firebase.notifications().displayNotification(notification);
-        } catch (e) {
-            console.warn('React Native Firebase is not set up. Enable google-services plugin at the bottom of the build.gradle file');
-        }
+//     showLocalNotification(from) {
+//         console.log('PushManager: showLocalNotification');
+//         try {
+//             const notification = new firebase.notifications.Notification()
+//                 .setNotificationId('notificationId')
+//                 .setTitle('Incoming call');
+//             notification.android.setSmallIcon('ic_vox_notification');
+//             notification
+//                 .android.setChannelId('voximplant_channel_id');
+//             firebase.notifications().displayNotification(notification);
+//         } catch (e) {
+//             console.warn('React Native Firebase is not set up. Enable google-services plugin at the bottom of the build.gradle file');
+//         }
 
-    }
+//     }
 
-    removeDeliveredNotification() {
-        try {
-            firebase.notifications().removeAllDeliveredNotifications();
-        } catch (e) {
-            console.warn('React Native Firebase is not set up. Enable google-services plugin at the bottom of the build.gradle file');
-        }
-    }
-}
+//     removeDeliveredNotification() {
+//         try {
+//             firebase.notifications().removeAllDeliveredNotifications();
+//         } catch (e) {
+//             console.warn('React Native Firebase is not set up. Enable google-services plugin at the bottom of the build.gradle file');
+//         }
+//     }
+// }
 
-const pushManager = new PushManager();
-export default pushManager;
+// const pushManager = new PushManager();
+// export default pushManager;

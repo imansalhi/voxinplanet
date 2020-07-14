@@ -86,7 +86,7 @@ export default class CallManager {
 
     _showIncomingScreenOrNotification(event) {
         if (this.currentAppState !== 'active') {
-            PushManager.showLocalNotification('');
+         //   PushManager.showLocalNotification('');
             this.showIncomingCallScreen = true;
         } else {
             NavigationService.navigate('IncomingCall', {
@@ -136,7 +136,7 @@ export default class CallManager {
         if (this.currentAppState === 'active' && this.showIncomingCallScreen && this.call !== null) {
             this.showIncomingCallScreen = false;
             if (Platform.OS === 'android') {
-                PushManager.removeDeliveredNotification();
+              //  PushManager.removeDeliveredNotification();
             }
             NavigationService.navigate('IncomingCall', {
                 callId: this.call.callId,

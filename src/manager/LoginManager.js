@@ -34,7 +34,7 @@ export default class LoginManager {
         // Connection to the Voximplant Cloud is stayed alive on reloading of the app's
         // JavaScript code. Calling "disconnect" API here makes the SDK and app states
         // synchronized.
-        PushManager.init();
+      //  PushManager.init();<<<<<<
         (async() => {
             try {
                 this.client.disconnect();
@@ -138,11 +138,11 @@ export default class LoginManager {
     }
 
     registerPushToken() {
-        this.client.registerPushNotificationsToken(PushManager.getPushToken());
+       // this.client.registerPushNotificationsToken(PushManager.getPushToken());
     }
 
     unregisterPushToken() {
-        this.client.unregisterPushNotificationsToken(PushManager.getPushToken());
+       // this.client.unregisterPushNotificationsToken(PushManager.getPushToken());
     }
 
     pushNotificationReceived(notification) {

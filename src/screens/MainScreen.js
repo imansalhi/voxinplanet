@@ -29,7 +29,7 @@ import {Voximplant} from 'react-native-voximplant';
 import COLOR from '../styles/Color';
 import COLOR_SCHEME from '../styles/ColorScheme';
 import styles from '../styles/Styles';
-
+import messaging from '@react-native-firebase/messaging';
 export default class MainScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         const params = navigation.state.params || {};
@@ -58,7 +58,20 @@ export default class MainScreen extends React.Component {
         ]);
     }
 
+    async requestUserPermission() {
+        const authStatus = await messaging().requestPermission();
+        const enabled =
+          authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+          authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+      alert(enabled)
+        if (enabled) {
+          console.log('Authorization status:', authStatus);
+        }
+      }
+
     componentDidMount() {
+       // this.requestUserPermission()
+
         this.props.navigation.setParams({ settingsClick: this._goToSettings, backClicked: this._goToLogin });
         LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
     }
