@@ -88,7 +88,7 @@ export default class MainScreen extends React.Component {
 
     componentDidMount() {
        // this.requestUserPermission()
-this.notif.localNotif(undefined,'test notif')
+//this.notif.localNotif(undefined,'test notif')
         this.props.navigation.setParams({ settingsClick: this._goToSettings, backClicked: this._goToLogin });
         LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
     }
