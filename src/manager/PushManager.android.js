@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2011-2018, Zingaya, Inc. All rights reserved.
+ https://github.com/zo0r/react-native-push-notification
  */
 
 'use strict';
